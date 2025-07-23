@@ -1,9 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import bookSlice from "../features/books/bookSlice";
+import tvReducers from "../features/tvs/tvSlice";
+
 
 const store = configureStore({
     reducer: {
-        library: bookSlice,
+        tv: tvReducers
     }
 })
 

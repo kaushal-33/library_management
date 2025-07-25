@@ -16,9 +16,9 @@ const Header = () => {
                 <div className="flex justify-between items-center py-4">
                     {/* Logo Section */}
                     <div className="flex items-center space-x-3">
-                        <div className="bg-white text-blue-600 rounded-xl w-12 h-12 flex items-center justify-center shadow-md transform hover:scale-105 transition-transform duration-200">
+                        <Link to={"/"} className="bg-white text-blue-600 rounded-xl w-12 h-12 flex items-center justify-center shadow-md">
                             <span className="text-xl font-bold">RE</span>
-                        </div>
+                        </Link>
                         <div>
                             <h1 className="text-2xl font-bold bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
                                 Radheshyam Electronics

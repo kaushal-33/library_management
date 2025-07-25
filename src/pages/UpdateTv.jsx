@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addTv } from "../features/tvs/tvSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { updateTv } from "../features/tvs/tvSlice";
 import { toast } from "react-toastify";
 
-const AddTv = () => {
+const UpdateTv = () => {
 
     const [formData, setFormData] = useState({
         customerName: '',
@@ -13,6 +13,7 @@ const AddTv = () => {
         size: '',
         problem: '',
     });
+
     const [error, setError] = useState({
         customerName: '',
         contact: '',
@@ -23,13 +24,12 @@ const AddTv = () => {
 
     const tvArr = useSelector(state => state.tv.tvArr)
 
+    const { idx } = useParams();
     const dispatch = useDispatch();
-
     const navigate = useNavigate();
-
     useEffect(() => {
-        localStorage.setItem("tvArr", JSON.stringify(tvArr))
-    }, [tvArr])
+        setFormData(tvArr.at(idx));
+    }, [])
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -37,9 +37,8 @@ const AddTv = () => {
         setFormData({ ...formData, [name]: value })
     };
 
-    const handleSubmit = (e) => {
+    const handleUpdate = (e) => {
         e.preventDefault();
-
         const validationError = {}
 
         if (!formData.customerName.trim()) {
@@ -66,7 +65,7 @@ const AddTv = () => {
 
         if (Object.keys(validationError).length > 0) return;
 
-        dispatch(addTv(formData));
+        dispatch(updateTv({ formData, idx }));
         setFormData({
             customerName: '',
             contact: '',
@@ -74,18 +73,17 @@ const AddTv = () => {
             size: '',
             problem: '',
         })
-        toast.success("New T.V added...!");
-        navigate("/")
+        toast.success("T.V details updated...!");
+        navigate("/");
     };
-
 
     return (
         <section>
             <div className="max-w-lg mx-auto mt-10 p-6 bg-white shadow-2xl rounded-2xl border border-gray-200 w-full">
                 <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
-                    LED TV Service Request
+                    LED TV Service Update Update
                 </h2>
-                <form onSubmit={handleSubmit} className="space-y-5">
+                <form onSubmit={handleUpdate} className="space-y-5">
                     {/* Customer name */}
                     <div>
                         <label className="block text-sm font-semibold text-gray-600 mb-1" htmlFor="name">
@@ -189,7 +187,7 @@ const AddTv = () => {
                             type="submit"
                             className="w-full bg-emerald-600 text-white font-semibold py-2 rounded-lg hover:bg-emerald-700 transition duration-300"
                         >
-                            Submit Request
+                            Update Request
                         </button>
                     </div>
                 </form>
@@ -198,4 +196,4 @@ const AddTv = () => {
     )
 }
 
-export default AddTv
+export default UpdateTv

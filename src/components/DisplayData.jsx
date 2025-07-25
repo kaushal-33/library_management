@@ -49,7 +49,7 @@ const DisplayData = () => {
 
 
     return (
-        <div className="w-full max-w-7xl mx-auto mt-8 px-4">
+        <div className="w-full max-w-7xl mx-auto mt-8 pb-8 px-4">
             <div className="bg-white shadow-xl rounded-xl overflow-hidden border border-gray-200">
                 {/* Header */}
                 <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4 flex justify-between items-center">
@@ -74,7 +74,7 @@ const DisplayData = () => {
                                 <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Customer Info</th>
                                 <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">T.V Details</th>
                                 <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Problem Description</th>
-                                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">delivery Status</th>
+                                <th className="px-6 py-4 text-xs font-semibold text-gray-600 uppercase tracking-wider text-center">delivery Status</th>
                                 <th className="px-6 py-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
                             </tr>
                         </thead>
@@ -118,7 +118,7 @@ const DisplayData = () => {
                                             </div>
                                         </div>
                                     </td>
-                                    <td className="px-6 py-4">
+                                    <td className="px-6 py-4 text-center">
                                         <span
                                             className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize ${customer.status === "pending" ? "bg-orange-400 text-white" : "bg-green-400 text-white"}`}
                                         >
@@ -126,9 +126,13 @@ const DisplayData = () => {
                                         </span>
 
                                         {customer.amount && (
-                                            <div className="mt-1 text-sm font-semibold text-gray-800 flex items-center gap-1">
-                                                <IndianRupeeIcon className="w-4 h-4 text-gray-600" />
-                                                <span>{Number(customer.amount).toLocaleString()}</span>
+                                            <div className="text-center">
+                                                <div className="mt-1 text-sm font-semibold text-gray-800 flex justify-center items-center gap-1">
+                                                    <IndianRupeeIcon className="w-4 h-4 text-gray-600" />
+                                                    <span>{Number(customer.amount).toLocaleString()}</span>
+
+                                                </div>
+                                                <div className="text-[12px]">{new Date(customer.deliveryDate).toDateString()}</div>
                                             </div>
                                         )}
                                     </td>

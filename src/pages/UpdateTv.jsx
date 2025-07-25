@@ -45,8 +45,8 @@ const UpdateTv = () => {
             validationError.customerName = "Enter Your Name";
         }
 
-        if (!formData.contact.trim()) {
-            validationError.contact = "Enter Your Contact";
+        if (!formData.contact.trim() || formData.contact.length !== 10) {
+            validationError.contact = "Enter Valid Contact";
         }
 
         if (!formData.brand.trim()) {

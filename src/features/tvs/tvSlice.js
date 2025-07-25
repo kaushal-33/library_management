@@ -22,7 +22,7 @@ const tvSlice = createSlice({
             let foundIdx = state.tvArr.findIndex((item) => item.id === action.payload.id)
             let foundItem = state.tvArr.find((item) => item.id === action.payload.id)
             console.log(action.payload)
-            state.tvArr[foundIdx] = { ...foundItem, status: "completed", amount: action.payload.confirmAmount }
+            state.tvArr[foundIdx] = { ...foundItem, status: "completed", amount: action.payload.confirmAmount, deliveryDate: Date.now() }
             localStorage.setItem("tvArr", JSON.stringify(state.tvArr));
         }
 

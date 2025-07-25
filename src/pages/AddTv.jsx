@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const AddTv = () => {
-
     const [formData, setFormData] = useState({
         customerName: '',
         contact: '',
@@ -13,6 +12,7 @@ const AddTv = () => {
         size: '',
         problem: '',
     });
+
     const [error, setError] = useState({
         customerName: '',
         contact: '',
@@ -21,110 +21,84 @@ const AddTv = () => {
         problem: '',
     });
 
-    const tvArr = useSelector(state => state.tv.tvArr)
-
+    const tvArr = useSelector(state => state.tv.tvArr);
     const dispatch = useDispatch();
-
     const navigate = useNavigate();
 
     useEffect(() => {
-        localStorage.setItem("tvArr", JSON.stringify(tvArr))
-    }, [tvArr])
+        localStorage.setItem("tvArr", JSON.stringify(tvArr));
+    }, [tvArr]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setError({ ...error, [name]: "" })
-        setFormData({ ...formData, [name]: value })
+        setError({ ...error, [name]: "" });
+        setFormData({ ...formData, [name]: value });
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const validationError = {};
 
-        const validationError = {}
-
-        if (!formData.customerName.trim()) {
-            validationError.customerName = "Enter Your Name";
-        }
-
-        if (!formData.contact.trim()) {
-            validationError.contact = "Enter Your Contact";
-        }
-
-        if (!formData.brand.trim()) {
-            validationError.brand = "Enter Your T.V Brand";
-        }
-
-        if (!formData.size.trim()) {
-            validationError.size = "Enter Your T.V Size";
-        }
-
-        if (!formData.problem.trim()) {
-            validationError.problem = "Enter Your T.V fault";
-        }
+        if (!formData.customerName.trim()) validationError.customerName = "Enter Your Name...!";
+        if (!formData.contact.trim() || formData.contact.length !== 10) validationError.contact = "Enter valid Contact...!";
+        if (!formData.brand.trim()) validationError.brand = "Enter Your T.V Brand...!";
+        if (!formData.size.trim()) validationError.size = "Enter Your T.V Size...!";
+        if (!formData.problem.trim()) validationError.problem = "Select T.V fault...!";
 
         setError(validationError);
-
         if (Object.keys(validationError).length > 0) return;
 
         dispatch(addTv(formData));
-        setFormData({
-            customerName: '',
-            contact: '',
-            brand: '',
-            size: '',
-            problem: '',
-        })
+        setFormData({ customerName: '', contact: '', brand: '', size: '', problem: '' });
         toast.success("New T.V added...!");
-        navigate("/")
+        navigate("/");
     };
 
-
     return (
-        <section>
-            <div className="max-w-lg mx-auto mt-10 p-6 bg-white shadow-2xl rounded-2xl border border-gray-200 w-full">
-                <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
+        <section className="min-h-screen flex items-center justify-center bg-gray-100 py-10 px-4">
+            <div className="max-w-3xl w-full bg-white p-8 rounded-xl shadow-lg border">
+                <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
                     LED TV Service Request
                 </h2>
-                <form onSubmit={handleSubmit} className="space-y-5">
-                    {/* Customer name */}
+
+                <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-700">
+                    {/* Name */}
                     <div>
-                        <label className="block text-sm font-semibold text-gray-600 mb-1" htmlFor="name">
+                        <label htmlFor="customerName" className="text-sm font-medium">
                             Customer Name
                         </label>
                         <input
                             type="text"
                             name="customerName"
-                            id="name"
+                            id="customerName"
                             value={formData.customerName}
                             onChange={handleChange}
                             placeholder="Name"
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                            className={`w-full px-4 py-2 mt-1 outline-0 rounded-md border ${error.customerName ? 'border-red-400' : 'border-gray-300'} focus:ring-2 focus:ring-blue-400`}
                         />
-                        {
-                            error && <p className="text-red-600 font-semibold" >{error.customerName}</p>
-                        }
+                        {error.customerName && <p className="text-xs text-red-500 mt-1">{error.customerName}</p>}
                     </div>
-                    {/* Customer contact */}
+
+                    {/* Contact */}
                     <div>
-                        <label className="block text-sm font-semibold text-gray-600 mb-1" htmlFor="contact">
+                        <label htmlFor="contact" className="text-sm font-medium">
                             Contact
                         </label>
                         <input
                             type="number"
-                            id="contact"
                             name="contact"
+                            id="contact"
                             value={formData.contact}
                             onChange={handleChange}
                             placeholder="1234567890"
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                            className={`w-full px-4 py-2 mt-1 outline-0 rounded-md border ${error.contact ? 'border-red-400' : 'border-gray-300'} focus:ring-2 focus:ring-blue-400`}
                         />
-                        {
-                            error && <p className="text-red-600 font-semibold" >{error.contact}</p>
-                        }
+                        {error.contact && <p className="text-xs text-red-500 mt-1">{error.contact}</p>}
                     </div>
-                    {/* Brand Name */}
+
+                    {/* Brand */}
                     <div>
-                        <label className="block text-sm font-semibold text-gray-600 mb-1" htmlFor="brand">
+                        <label htmlFor="brand" className="text-sm font-medium">
                             Brand Name
                         </label>
                         <input
@@ -133,16 +107,15 @@ const AddTv = () => {
                             id="brand"
                             value={formData.brand}
                             onChange={handleChange}
-                            placeholder="e.g., Samsung, LG, Sony"
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                            placeholder="Samsung, LG, Sony"
+                            className={`w-full px-4 py-2 mt-1 outline-0 rounded-md border ${error.brand ? 'border-red-400' : 'border-gray-300'} focus:ring-2 focus:ring-blue-400`}
                         />
-                        {
-                            error && <p className="text-red-600 font-semibold" >{error.brand}</p>
-                        }
+                        {error.brand && <p className="text-xs text-red-500 mt-1">{error.brand}</p>}
                     </div>
+
                     {/* TV Size */}
                     <div>
-                        <label className="block text-sm font-semibold text-gray-600 mb-1" htmlFor="size">
+                        <label htmlFor="size" className="text-sm font-medium">
                             TV Size (inches)
                         </label>
                         <input
@@ -151,17 +124,15 @@ const AddTv = () => {
                             id="size"
                             value={formData.size}
                             onChange={handleChange}
-                            placeholder="e.g., 32, 43, 55"
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
-
+                            placeholder="32, 43, 55"
+                            className={`w-full px-4 py-2 mt-1 outline-0 rounded-md border ${error.size ? 'border-red-400' : 'border-gray-300'} focus:ring-2 focus:ring-blue-400`}
                         />
-                        {
-                            error && <p className="text-red-600 font-semibold" >{error.size}</p>
-                        }
+                        {error.size && <p className="text-xs text-red-500 mt-1">{error.size}</p>}
                     </div>
+
                     {/* Problem */}
-                    <div>
-                        <label className="block text-sm font-semibold text-gray-600 mb-1" htmlFor="problem">
+                    <div className="md:col-span-2">
+                        <label htmlFor="problem" className="text-sm font-medium">
                             Problem
                         </label>
                         <select
@@ -169,25 +140,23 @@ const AddTv = () => {
                             id="problem"
                             value={formData.problem}
                             onChange={handleChange}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
-
+                            className={`w-full px-4 py-2 mt-1 outline-0 rounded-md border ${error.problem ? 'border-red-400' : 'border-gray-300'} focus:ring-2 focus:ring-blue-400`}
                         >
                             <option value="" disabled>-- Select Problem --</option>
-                            <option value="1" className="capitalize">motherboard</option>
-                            <option value="2" className="capitalize">power suppy</option>
-                            <option value="3" className="capitalize">back light</option>
-                            <option value="4" className="capitalize">display</option>
-                            <option value="5" className="capitalize">audio</option>
+                            <option value="1">Motherboard</option>
+                            <option value="2">Power Supply</option>
+                            <option value="3">Back Light</option>
+                            <option value="4">Display</option>
+                            <option value="5">Audio</option>
                         </select>
-                        {
-                            error && <p className="text-red-600 font-semibold" >{error.problem}</p>
-                        }
+                        {error.problem && <p className="text-xs text-red-500 mt-1">{error.problem}</p>}
                     </div>
+
                     {/* Submit Button */}
-                    <div className="pt-4">
+                    <div className="md:col-span-2 pt-2">
                         <button
                             type="submit"
-                            className="w-full bg-emerald-600 text-white font-semibold py-2 rounded-lg hover:bg-emerald-700 transition duration-300"
+                            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-md shadow"
                         >
                             Submit Request
                         </button>
@@ -195,7 +164,7 @@ const AddTv = () => {
                 </form>
             </div>
         </section>
-    )
-}
+    );
+};
 
-export default AddTv
+export default AddTv;

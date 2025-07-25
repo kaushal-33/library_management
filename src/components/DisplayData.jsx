@@ -4,6 +4,8 @@ import { confirmDeliveryAmount, deleteTv } from "../features/tvs/tvSlice";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import TvAccounts from "./TvAccounts";
+import MostRecentTv from "./MostRecentTv";
 
 const DisplayData = () => {
     const [isPopOverOpen, setIsPopoverOpen] = useState(false);
@@ -50,6 +52,14 @@ const DisplayData = () => {
 
     return (
         <div className="w-full max-w-7xl mx-auto mt-8 pb-8 px-4">
+            <div className="flex lg:justify-between justify-center items-end flex-wrap mb-8">
+                <div className="h-full lg:pb-0 pb-8">
+                    <MostRecentTv />
+                </div>
+                <div className="lg:w-8/12">
+                    <TvAccounts />
+                </div>
+            </div>
             <div className="bg-white shadow-xl rounded-xl overflow-hidden border border-gray-200">
                 {/* Header */}
                 <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4 flex justify-between items-center">

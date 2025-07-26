@@ -62,15 +62,15 @@ const DisplayData = () => {
             </div>
             <div className="bg-white shadow-xl rounded-xl overflow-hidden border border-gray-200">
                 {/* Header */}
-                <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4 flex justify-between items-center">
-                    <div>
+                <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4 flex justify-between flex-wrap items-center">
+                    <div className="md:w-9/12">
                         <h2 className="text-xl font-bold text-white flex items-center gap-2">
                             <Monitor className="w-6 h-6" />
                             TV Service Records
                         </h2>
                         <p className="text-blue-100 text-sm mt-1">Manage customer service requests and payments</p>
                     </div>
-                    <div className="w-3/12">
+                    <div className="md:w-3/12 md:mt-0 mt-3">
                         <input type="text" onChange={handleSearch} placeholder="🔎 Search" className="w-full border-0 outline-0 border-b border-white text-white pb-1 px-2 focus:shadow rounded-lg" />
                     </div>
                 </div>

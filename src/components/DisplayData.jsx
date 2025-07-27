@@ -53,10 +53,12 @@ const DisplayData = () => {
     return (
         <div className="w-full max-w-7xl mx-auto mt-8 pb-8 px-4">
             <div className="flex lg:justify-between justify-center items-end flex-wrap mb-8">
-                <div className="h-full lg:pb-0 pb-8">
-                    <MostRecentTv />
+                <div className="lg:w-4/12 h-full lg:pb-0 pb-8">
+                    <div className="pe-5">
+                        <MostRecentTv />
+                    </div>
                 </div>
-                <div className="lg:w-8/12">
+                <div className="lg:w-8/12 w-full">
                     <TvAccounts />
                 </div>
             </div>

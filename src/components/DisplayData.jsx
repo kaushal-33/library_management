@@ -54,7 +54,7 @@ const DisplayData = () => {
         <div className="w-full max-w-7xl mx-auto mt-8 pb-8 px-4">
             <div className="flex lg:justify-between justify-center items-end flex-wrap mb-8">
                 <div className="lg:w-4/12 h-full lg:pb-0 pb-8">
-                    <div className="pe-5">
+                    <div className="lg:pe-5 p-0">
                         <MostRecentTv />
                     </div>
                 </div>

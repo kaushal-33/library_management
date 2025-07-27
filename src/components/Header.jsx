@@ -28,16 +28,16 @@ const Header = () => {
                     </div>
 
                     {/* Desktop Navigation */}
-                    <nav className="hidden md:flex space-x-2">
-                        <Link to={"/"} className="flex items-center space-x-2 px-4 py-2 bg-white/10 cursor-pointer rounded-lg transition-all backdrop-blur-sm">
+                    <nav className="hidden lg:flex space-x-2">
+                        <Link to={"/"} className="flex items-center text-sm space-x-2 px-4 py-2 bg-white/10 cursor-pointer rounded-lg transition-all backdrop-blur-sm">
                             <Home size={18} />
                             <span>Dashboard</span>
                         </Link>
-                        <Link to={"/addTv"} className="flex items-center space-x-2 px-4 py-2 bg-white/10 cursor-pointer rounded-lg transition-all backdrop-blur-sm">
+                        <Link to={"/addTv"} className="flex items-center text-sm space-x-2 px-4 py-2 bg-white/10 cursor-pointer rounded-lg transition-all backdrop-blur-sm">
                             <Plus size={18} />
                             <span>Add New TV</span>
                         </Link>
-                        <Link to={"/services"} className="flex items-center space-x-2 px-4 py-2 bg-white/10 cursor-pointer rounded-lg transition-all backdrop-blur-sm">
+                        <Link to={"/services"} className="flex items-center text-sm space-x-2 px-4 py-2 bg-white/10 cursor-pointer rounded-lg transition-all backdrop-blur-sm">
                             <Settings size={18} />
                             <span>Our Services</span>
                         </Link>
@@ -45,7 +45,7 @@ const Header = () => {
 
                     {/* Mobile Menu Button */}
                     <button
-                        className="md:hidden p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors duration-200"
+                        className="lg:hidden p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors duration-200"
                         onClick={toggleMenu}
                     >
                         {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -53,19 +53,19 @@ const Header = () => {
                 </div>
 
                 {/* Mobile Navigation */}
-                <div className={`md:hidden transition-all duration-300 ease-in-out ${isMenuOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
+                <div className={`lg:hidden transition-all duration-300 ease-in-out ${isMenuOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
                     } overflow-hidden`}>
                     <nav className="py-4 border-t border-white/20">
                         <div className="flex flex-col space-y-2">
-                            <Link to={"/"} className="flex items-center space-x-3 px-4 py-3 bg-white/10 hover:bg-white/20 rounded-lg transition-all duration-200 text-left">
+                            <Link to={"/"} onClick={() => setIsMenuOpen(false)} className="flex items-center space-x-3 px-4 py-3 bg-white/10 hover:bg-white/20 rounded-lg transition-all duration-200 text-left">
                                 <Home size={20} />
                                 <span>Dashboard</span>
                             </Link>
-                            <Link to={"/addTv"} className="flex items-center space-x-3 px-4 py-3 bg-white/10 hover:bg-white/20 rounded-lg transition-all duration-200 text-left">
+                            <Link to={"/addTv"} onClick={() => setIsMenuOpen(false)} className="flex items-center space-x-3 px-4 py-3 bg-white/10 hover:bg-white/20 rounded-lg transition-all duration-200 text-left">
                                 <Plus size={20} />
                                 <span>Add New TV</span>
                             </Link>
-                            <Link to={"/services"} className="flex items-center space-x-3 px-4 py-3 bg-white/10 hover:bg-white/20 rounded-lg transition-all duration-200 text-left">
+                            <Link to={"/services"} onClick={() => setIsMenuOpen(false)} className="flex items-center space-x-3 px-4 py-3 bg-white/10 hover:bg-white/20 rounded-lg transition-all duration-200 text-left">
                                 <Settings size={20} />
                                 <span>Our Services</span>
                             </Link>

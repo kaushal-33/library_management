@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { addTv } from "../features/tvs/tvSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Mic } from "lucide-react";
+import { useSpeechToText } from "../hooks/useSpeechToText";
 
 const AddTv = () => {
     const [formData, setFormData] = useState({
@@ -24,7 +26,8 @@ const AddTv = () => {
     const tvArr = useSelector(state => state.tv.tvArr);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
+    const { text, isListening, startListening, stopListening } = useSpeechToText();
+    console.log(isListening)
     useEffect(() => {
         localStorage.setItem("tvArr", JSON.stringify(tvArr));
     }, [tvArr]);
@@ -64,18 +67,26 @@ const AddTv = () => {
                 <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-700">
                     {/* Name */}
                     <div>
-                        <label htmlFor="customerName" className="text-sm font-medium">
-                            Customer Name
-                        </label>
-                        <input
-                            type="text"
-                            name="customerName"
-                            id="customerName"
-                            value={formData.customerName}
-                            onChange={handleChange}
-                            placeholder="Name"
-                            className={`w-full px-4 py-2 mt-1 outline-0 rounded-md border ${error.customerName ? 'border-red-400' : 'border-gray-300'} focus:ring-2 focus:ring-blue-400`}
-                        />
+                        <div className="relative">
+                            <label htmlFor="customerName" className="text-sm font-medium">
+                                Customer Name
+                            </label>
+                            <input
+                                type="text"
+                                name="customerName"
+                                id="customerName"
+                                value={formData.customerName}
+                                onChange={handleChange}
+                                placeholder="Name"
+                                className={`w-full ps-4 pe-10 py-2 mt-1 outline-0 rounded-md border ${error.customerName ? 'border-red-400' : 'border-gray-300'} focus:ring-2 focus:ring-blue-400`}
+                            />
+                            <button type="button" className={`absolute bottom-[8px] cursor-pointer right-[10px] ${isListening ? "text-green-500" : "text-gray-500"}`} title="Speech to text" onClick={() => {
+                                isListening ? stopListening() : startListening();
+                                formData.customerName = text;
+                            }}>
+                                <Mic />
+                            </button>
+                        </div>
                         {error.customerName && <p className="text-xs text-red-500 mt-1">{error.customerName}</p>}
                     </div>
 
